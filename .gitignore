@@ -1,0 +1,50 @@
+# Ignore everything except the bedtime-story directory
+/*
+!/.gitignore
+!/bedtime-story/
+
+# But also ignore the .openclaw directory (even inside bedtime-story)
+.openclaw/
+
+# Ignore all other files in root (already covered by /*)
+# However, we need to allow bedtime-story through, so we negate it above.
+
+# Additional global ignores
+*.log
+*.pid
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.idea/
+*.iml
+.vscode/
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+*.backup
+*.backup_test
