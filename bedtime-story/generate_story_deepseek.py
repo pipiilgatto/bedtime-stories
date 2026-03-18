@@ -7,6 +7,7 @@ import json
 import os
 import sys
 import requests
+import subprocess
 from datetime import datetime
 from pathlib import Path
 
@@ -106,6 +107,19 @@ def git_commit_push(message="Update stories"):
     result = os.system("git push origin master 2>&1")
     return result == 0
 
+def send_telegram_notification(message):
+    """Send a notification via Telegram using OpenClaw CLI."""
+    try:
+        cmd = ["openclaw", "message", "--channel", "telegram", "--to", "8630376767", "--message", message]
+        subprocess.run(cmd, check=True, timeout=10)
+        print(f"Telegram notification sent: {message[:50]}...", file=sys.stderr)
+    except subprocess.CalledProcessError as e:
+        print(f"Failed to send Telegram notification: {e}", file=sys.stderr)
+    except subprocess.TimeoutExpired:
+        print("Telegram notification timeout", file=sys.stderr)
+    except Exception as e:
+        print(f"Error sending Telegram notification: {e}", file=sys.stderr)
+
 def main():
     today = get_today_date()
     stories = load_stories()
@@ -118,7 +132,9 @@ def main():
     print(f"Generating story for {today}...", file=sys.stderr)
     story_content = generate_story()
     if not story_content:
-        print("Failed to generate story.", file=sys.stderr)
+        error_msg = f"Failed to generate bedtime story for {today}"
+        print(error_msg, file=sys.stderr)
+        send_telegram_notification(error_msg)
         sys.exit(1)
 
     new_story = {
@@ -136,9 +152,15 @@ def main():
     # Commit and push
     msg = f"Add story for {today}"
     if git_commit_push(msg):
-        print("Committed and pushed to GitHub!", file=sys.stderr)
+        status = "Committed and pushed to GitHub!"
+        print(status, file=sys.stderr)
     else:
-        print("Committed locally (push failed - check token).", file=sys.stderr)
+        status = "Committed locally (push failed - check token)."
+        print(status, file=sys.stderr)
+    
+    # Send Telegram notification
+    notification = f"Bedtime story for {today} generated. {status}"
+    send_telegram_notification(notification)
 
 if __name__ == "__main__":
     main()
