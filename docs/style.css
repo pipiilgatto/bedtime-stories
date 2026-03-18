@@ -127,6 +127,46 @@ h1 {
     border-color: #4299e1;
 }
 
+/* Play button */
+.play-btn {
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 2px solid #48bb78;
+    background: #48bb78;
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.play-btn:hover {
+    background: #38a169;
+    border-color: #38a169;
+    transform: translateY(-2px);
+}
+
+.play-btn:active {
+    transform: translateY(0);
+}
+
+.play-btn.playing {
+    background: #e53e3e;
+    border-color: #e53e3e;
+}
+
+.play-btn.playing:hover {
+    background: #c53030;
+    border-color: #c53030;
+}
+
+.play-icon {
+    font-size: 1rem;
+}
+
 /* Story card */
 .story-card {
     background: white;
@@ -253,6 +293,98 @@ h1 {
     overflow: hidden;
 }
 
+/* Back to today button */
+.back-today-btn {
+    padding: 8px 16px;
+    border-radius: 50px;
+    border: 2px solid #9f7aea;
+    background: #9f7aea;
+    color: white;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-left: auto;
+}
+
+.back-today-btn:hover {
+    background: #805ad5;
+    border-color: #805ad5;
+}
+
+/* Clickable previous story item */
+.prev-story-item.clickable {
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.prev-story-item.clickable:hover {
+    background: #edf2f7;
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.prev-story-click-hint {
+    font-size: 0.8rem;
+    color: #4299e1;
+    margin-top: 8px;
+    font-weight: 500;
+}
+
+/* Archive section */
+.archive-section {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px dashed #cbd5e0;
+}
+
+.archive-section h3 {
+    font-size: 0.95rem;
+    color: #718096;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.archive-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.archive-item {
+    padding: 12px;
+    border-radius: 12px;
+    background: #f7fafc;
+    border-left: 3px solid #a0aec0;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.archive-item:hover {
+    background: #edf2f7;
+    border-left-color: #4299e1;
+}
+
+.archive-date {
+    font-weight: 600;
+    color: #4a5568;
+    white-space: nowrap;
+    margin-right: 12px;
+}
+
+.archive-snippet {
+    color: #718096;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* About */
 .about {
     background: white;
@@ -323,8 +455,29 @@ footer a {
         min-width: 100px;
     }
 
+    .play-btn {
+        width: 100%;
+        justify-content: center;
+        margin-top: 12px;
+    }
+
     .story-card, .previous-stories, .about {
         padding: 22px;
+    }
+
+    .archive-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .archive-date {
+        margin-right: 0;
+    }
+
+    .archive-snippet {
+        white-space: normal;
+        overflow: visible;
     }
 }
 
@@ -376,6 +529,51 @@ footer a {
         background: #63b3ed;
         color: #1a202c;
         border-color: #63b3ed;
+    }
+
+    .back-today-btn {
+        background: #805ad5;
+        border-color: #805ad5;
+        color: white;
+    }
+
+    .back-today-btn:hover {
+        background: #6b46c1;
+        border-color: #6b46c1;
+    }
+
+    .prev-story-item.clickable:hover {
+        background: #4a5568;
+    }
+
+    .prev-story-click-hint {
+        color: #63b3ed;
+    }
+
+    .archive-section {
+        border-top-color: #4a5568;
+    }
+
+    .archive-section h3 {
+        color: #cbd5e0;
+    }
+
+    .archive-item {
+        background: #4a5568;
+        border-left-color: #718096;
+    }
+
+    .archive-item:hover {
+        background: #5a6578;
+        border-left-color: #63b3ed;
+    }
+
+    .archive-date {
+        color: #e2e8f0;
+    }
+
+    .archive-snippet {
+        color: #cbd5e0;
     }
 
     footer {
