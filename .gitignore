@@ -5,6 +5,7 @@
 
 # But also ignore the .openclaw directory (even inside bedtime-story)
 .openclaw/
+.bore/
 
 # Ignore all other files in root (already covered by /*)
 # However, we need to allow bedtime-story through, so we negate it above.
