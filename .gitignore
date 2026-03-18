@@ -7,6 +7,7 @@
 !/daily_morning.py
 !/HEARTBEAT.md
 !/scripts/
+!/.github/
 
 # But also ignore the .openclaw directory (even inside bedtime-story)
 .openclaw/

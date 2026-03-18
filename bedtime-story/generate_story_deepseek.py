@@ -34,6 +34,20 @@ def load_stories():
 def save_stories(stories):
     with open(STORIES_FILE, 'w', encoding='utf-8') as f:
         json.dump(stories, f, ensure_ascii=False, indent=2)
+    # Also copy to docs/ for GitHub Pages
+    copy_stories_to_docs(stories)
+
+def copy_stories_to_docs(stories):
+    """Copy stories.json to docs/ for GitHub Pages."""
+    docs_dir = Path(__file__).parent.parent / "docs"
+    docs_file = docs_dir / "stories.json"
+    try:
+        docs_dir.mkdir(exist_ok=True)
+        with open(docs_file, 'w', encoding='utf-8') as f:
+            json.dump(stories, f, ensure_ascii=False, indent=2)
+        print(f"Copied stories to {docs_file}", file=sys.stderr)
+    except Exception as e:
+        print(f"Warning: Failed to copy to docs: {e}", file=sys.stderr)
 
 def generate_story():
     prompt = """You are a warm, creative storyteller. Write a short, original bedtime story that is heartwarming and suitable for all ages.
