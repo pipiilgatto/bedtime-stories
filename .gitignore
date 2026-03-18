@@ -1,7 +1,12 @@
-# Ignore everything except the bedtime-story directory
+# Ignore everything except the bedtime-story directory and docs
 /*
 !/.gitignore
 !/bedtime-story/
+!/docs/
+!/daily_spending_report.py
+!/daily_morning.py
+!/HEARTBEAT.md
+!/scripts/
 
 # But also ignore the .openclaw directory (even inside bedtime-story)
 .openclaw/

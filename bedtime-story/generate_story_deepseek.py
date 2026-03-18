@@ -108,15 +108,29 @@ def git_commit_push(message="Update stories"):
     return result == 0
 
 def send_telegram_notification(message):
-    """Send a notification via Telegram using OpenClaw CLI."""
+    """Send a notification via Telegram using Bot API."""
     try:
-        cmd = ["openclaw", "message", "--channel", "telegram", "--to", "8630376767", "--message", message]
-        subprocess.run(cmd, check=True, timeout=10)
-        print(f"Telegram notification sent: {message[:50]}...", file=sys.stderr)
-    except subprocess.CalledProcessError as e:
-        print(f"Failed to send Telegram notification: {e}", file=sys.stderr)
-    except subprocess.TimeoutExpired:
-        print("Telegram notification timeout", file=sys.stderr)
+        import urllib.request
+        import urllib.error
+        
+        token = "8715264713:AAHBdUdDQd2SoUlO2OcsL5IxZrXf6fWi90c"
+        url = f"https://api.telegram.org/bot{token}/sendMessage"
+        data = {
+            "chat_id": "8630376767",
+            "text": message
+        }
+        
+        req = urllib.request.Request(
+            url,
+            data=json.dumps(data).encode('utf-8'),
+            headers={"Content-Type": "application/json"}
+        )
+        with urllib.request.urlopen(req, timeout=10) as response:
+            result = json.loads(response.read().decode())
+            if result.get("ok"):
+                print(f"Telegram notification sent: {message[:50]}...", file=sys.stderr)
+            else:
+                print(f"Telegram API error: {result.get('description')}", file=sys.stderr)
     except Exception as e:
         print(f"Error sending Telegram notification: {e}", file=sys.stderr)
 
